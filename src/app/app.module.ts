@@ -17,6 +17,7 @@ import { CurrenciesProvider } from '../providers/currencies/currencies';
 import {SearchPipe} from "../pipes/search/search";
 
 import { IonicStorageModule } from '@ionic/storage';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { IonicStorageModule } from '@ionic/storage';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -47,7 +48,8 @@ import { IonicStorageModule } from '@ionic/storage';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    CurrenciesProvider
+    CurrenciesProvider,
+    LocalNotifications
   ]
 })
 export class AppModule {}

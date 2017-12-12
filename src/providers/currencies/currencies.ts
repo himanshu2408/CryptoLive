@@ -2,6 +2,7 @@ import { Http } from '@angular/http';
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Storage } from '@ionic/storage';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 /*
   Generated class for the CurrenciesProvider provider.
@@ -9,16 +10,17 @@ import { Storage } from '@ionic/storage';
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
+const Base_URL = 'https://cryptolive.herokuapp.com/';
 @Injectable()
 export class CurrenciesProvider {
   currencies = [];
   favourites = [];
   @Output() onGettingFavourites: EventEmitter<any> = new EventEmitter<any>();
-  constructor(public http: Http, private storage: Storage) {
+  constructor(public http: Http, private storage: Storage, private localNotifications: LocalNotifications) {
     console.log('Hello CurrenciesProvider Provider');
   }
   getCurrencies() {
-    this.http.get('http://localhost:3000').map(res => res.json()).subscribe(data => {
+    this.http.get(Base_URL).map(res => res.json()).subscribe(data => {
       this.currencies = data;
       console.log(data);
     });
@@ -30,6 +32,10 @@ export class CurrenciesProvider {
         this.favourites = value;
       }
       this.onGettingFavourites.emit(true);
+      this.localNotifications.schedule({
+        title: 'My first notification',
+        text: 'Thats pretty easy...'
+      });
     });
     console.log('fav from service...' , this.favourites);
   }
