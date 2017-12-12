@@ -1,0 +1,30 @@
+<!--
+  Generated template for the CurrencyDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="navbar">
+    <ion-title>{{currency.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+    <img src="{{currency.chart}}"/>
+    <ion-card-content style="margin-top: 20px;">
+      <h3>Current price: {{currency.price}}</h3>
+      <p>
+        Last 24hr change:
+        <span [style.color]="currency.change24hr[0] === '-' ? '#d14836' : '#093'">{{currency.change24hr}}
+        <ion-icon name="arrow-round-up" item-right *ngIf="!(currency.change24hr[0] === '-')"></ion-icon>
+        <ion-icon name="arrow-round-down" item-right *ngIf="currency.change24hr[0] === '-'"></ion-icon>
+        </span>
+      </p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
