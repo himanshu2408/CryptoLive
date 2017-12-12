@@ -14,6 +14,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HttpModule } from '@angular/http';
 import { CurrenciesProvider } from '../providers/currencies/currencies';
+import {SearchPipe} from "../pipes/search/search";
+
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -22,12 +25,14 @@ import { CurrenciesProvider } from '../providers/currencies/currencies';
     ContactPage,
     HomePage,
     TabsPage,
-    CurrencyDetailPage
+    CurrencyDetailPage,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
+    HttpModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

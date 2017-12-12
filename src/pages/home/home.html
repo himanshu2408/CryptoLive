@@ -1,19 +1,28 @@
 <ion-header>
   <ion-navbar color="navbar">
-    <ion-title>Home</ion-title>
+    <ion-title>All Currencies</ion-title>
   </ion-navbar>
+  <ion-item>
+    <ion-label><ion-icon name="search"></ion-icon></ion-label>
+    <ion-input type="text" [(ngModel)]="searchText" placeholder="Search"></ion-input>
+  </ion-item>
 </ion-header>
 
 <ion-content padding>
-  <h2>Cryptocurrencies!</h2>
+
   <ion-list *ngIf="this.currenciesProvider.currencies">
-    <ion-item *ngFor="let currency of this.currenciesProvider.currencies" (click)="this.selectCurrency(currency)">
+    <ion-item *ngFor="let currency of this.currenciesProvider.currencies | search: searchText" (click)="this.selectCurrency(currency)">
       <ion-avatar item-end>
         <img src="{{currency.chart}}">
       </ion-avatar>
       <h2>{{currency.name}}</h2>
       <h3>{{currency.price}}</h3>
       <p [style.color]="currency.change24hr[0] === '-' ? '#d14836' : '#093'">{{currency.change24hr}}</p>
+
+      <ion-icon name="star" item-right [hidden]="!this.currenciesProvider.isFavourite(currency)" (click)="this.currenciesProvider.markAsUnfavourite(currency)"></ion-icon>
+
+
+      <!--<ion-icon name="star-outline" item-right (click)="this.currenciesProvider.markAsFavourite(currency)" *ngIf="!this.currenciesProvider.isFavourite(currency)"></ion-icon>-->
     </ion-item>
   </ion-list>
 </ion-content>
